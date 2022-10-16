@@ -58,8 +58,8 @@ class PostgreSQL(Database):
             cfgfile = "/var/lib/pgsql/data/pg_hba.conf"
             package.backend.install_many(self.packages[package.backend.FORMAT])
             utils.exec_cmd(initdb_cmd)
-            #pattern = "s/^host(.+)ident$/host$1md5/"
-            #utils.exec_cmd("perl -pi -e '{}' {}".format(pattern, cfgfile))
+            pattern = "s/^host(.+)ident$/host$1md5/"
+            utils.exec_cmd("perl -pi -e '{}' {}".format(pattern, cfgfile))
         else:
             package.backend.install_many(self.packages[package.backend.FORMAT])
         system.enable_and_start_service(self.service)
