@@ -117,7 +117,7 @@ class PostgreSQL(Database):
         if self.dbhost not in ["localhost", "127.0.0.1"]:
             self._pgpass_done = True
             return
-        pw = pwd.getpwnam(dbuser)
+        pw = pwd.getpwnam(self.dbuser)
         target = os.path.join(pw[5], ".pgpass")
         with open(target, "w") as fp:
             fp.write("127.0.0.1:*:{}:{}:{}\n".format(
