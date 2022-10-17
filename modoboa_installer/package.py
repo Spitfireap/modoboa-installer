@@ -82,10 +82,18 @@ class RPMPackage(Package):
 
     def __init__(self, dist_name):
         """Initialize backend."""
+        self.dist_name = dist_name
         super(RPMPackage, self).__init__(dist_name)
-        if "centos" in dist_name:
+
+    def prepare_system(self):
+        if "centos" in self.dist_name:
             utils.exec_cmd("dnf config-manager --set-enabled crb")
             self.install("epel-release")
+        self.update()
+
+    def update(self):
+        """Update the database repo."""
+        utils.exec_cmd("dnf update -y --quiet")
 
     def install(self, name):
         """Install a package."""
